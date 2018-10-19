@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>省份选择框</title>
+</head>
+<body>
+    <select id="city1">
+
+   </select>
+   <select id="city2"></select>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script>
+        var cti1 = ['请选择','省1','省2','省3'];
+        var cti2=[
+        ['请选择'],
+        ['省1A','省1b','省1c','省1d'],
+        ['省2a','省2b'],
+        ['省3a','省3b'],
+        ];
+        window.onload=function () {
+            crateCity1();
+            document.getElementById("city1").onchange=crateCity2;
+        };
+        function crateCity1() {
+            var city1=document.getElementById("city1");
+            // console.log(city1);
+            for (var i in cti1){
+                var op1=new Option(cti1[i],cti1[i]);
+                // city1.option.add(op);
+                // console.log(op);
+               $('#city1').append(op1);
+            }
+
+        }
+
+        function crateCity2() {
+        //    取出city1选项中的索引
+            var index=document.getElementById("city1").selectedIndex;
+            console.log(index);
+            var city2=document.getElementById("city2");
+            console.log(city2);
+            city2.options.length =0 /*将city2中原有的option移除*/
+            // console.log(city2.options.length);
+
+            for (var i in cti2[index]){
+                var op=new Option(cti2[index][i],cti2[index][i]);
+                $('#city2').append(op);
+            }
+
+        }
+    </script>
+</body>
+</html>

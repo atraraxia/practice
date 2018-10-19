@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>整屏滚动</title>
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+    <script type="text/javascript">
+        $(function(){
+
+            var $h = $(window).height();
+            var len = $('.pages').length;
+            var $points = $('.points li');
+            var $pages = $('.pages');
+            var nowscreen = 0;
+            var timer = null;
+
+            $pages.eq(0).addClass('moving');
+
+
+            $('.pages').css({height:$h});
+
+
+            //dat的值：-1是向下滑动，1是向上滑动
+            $(window).mousewheel(function(event,dat){
+
+                //清掉前面刚刚开的定时器
+                clearTimeout(timer);
+
+                // 最新的一次定时器
+                timer = setTimeout(function(){
+
+                    if(dat==-1)
+                    {
+                        nowscreen++;
+
+                        if(nowscreen>len-1){
+                            nowscreen=len-1;
+                        }
+                    }
+                    else
+                    {
+                        nowscreen--;
+
+                        if(nowscreen<0){
+                            nowscreen=0;
+                        }
+                    }
+
+                    $('.pages_con').animate({top:-$h*nowscreen},300);
+
+                    $points.eq(nowscreen).addClass('active').siblings().removeClass('active');
+
+                    $pages.eq(nowscreen).addClass('moving').siblings().removeClass('moving');
+
+                },200);
+            })
+
+
+            $points.click(function(){
+
+                $(this).addClass('active').siblings().removeClass('active');
+                $('.pages_con').animate({top:-$h*$(this).index()},300);
+
+                $pages.eq($(this).index()).addClass('moving').siblings().removeClass('moving');
+
+            })
+
+
+
+        })
+    </script>
+</head>
+<body>
+    <div class="pages_con">
+        <div class="pages page1 moving">
+            <div class="main_con">
+                <div class="left_img">
+                    <img src="images/1.png">
+                </div>
+                <div class="right_info">
+                    有时候站在路边看着人来人往，会觉得城市比沙漠还要荒凉。每个人都靠的那么近，但完全不知道彼此的心事，那么嘈杂，那么多人在说话，可是没有人认真在听
+                </div>
+            </div>
+        </div>
+        <div class="pages page2">
+            <div class="main_con">
+                <div class="right_img">
+                    <img src="images/2.png">
+                </div>
+                <div class="left_info">
+                    人们对于生命的馈赠总是显得如此心平气和，我们无法抗拒，却要一并承认错误。只要能奢望下次契机出现时能坦然迎接，可即使在期望与焦虑中熬过整个严冬，邂逅的未必就是春暖花开。
+                </div>
+            </div>
+        </div>
+        <div class="pages page3">
+            <div class="main_con">
+                <div class="left_img">
+                    <img src="images/3.jpg">
+                </div>
+                <div class="right_info">
+                    有时候站在路边看着人来人往，会觉得城市比沙漠还要荒凉。每个人都靠的那么近，但完全不知道彼此的心事，那么嘈杂，那么多人在说话，可是没有人认真在听
+                </div>
+            </div>
+        </div>
+        <div class="pages page4">
+            <div class="main_con">
+                <div class="left_img">
+                    <img src="images/5.jpg">
+                </div>
+                <div class="right_info">
+                    命运总会出其不意的给你来一个难题，这种时候你会产生一种错觉，好像有很多选择摆在你的面前，你可以随心所欲。其实这时候的你，比以往任何时刻都要孤独和艰难，你不知道迷雾什么时候才会散尽，你不知道哪条路上布满荆棘，哪条道路暗藏沼泽，唯一可以依靠的，是你的直觉，唯一可以跟随的，是你的心灵。
+                </div>
+            </div>
+        </div>
+        <div class="pages page5">
+            <div class="main_con">
+                <div class="center_img"><img src="images/68874715_p0.png"></div>
+            </div>
+        </div>
+    </div>
+
+    <ul class="points">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+</html>
